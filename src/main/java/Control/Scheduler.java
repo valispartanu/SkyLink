@@ -4,14 +4,17 @@ import Client.Request;
 import DroneController.Drone;
 import DroneController.DroneStatus;
 import Map.Graph;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Scheduler {
 
-    boolean hasFuel(){
+    public boolean hasFuel(){
         return true;
     }
 
-    Drone pickClosestAvailableDrone(Request r){
+    private Drone pickClosestAvailableDrone(Request r){
         Drone min = null;
         double mindist = 9007199254740991.0;
         for(Drone d : Admin.getInstance().getDrones()){
@@ -24,7 +27,7 @@ public class Scheduler {
         return min;
     }
 
-    Drone assignDrone(Request r){
+    public Drone assignDrone(Request r){
         Drone d = pickClosestAvailableDrone(r);
         d.setStatus(DroneStatus.INSERVICE);
         d.updateRequest(r);

@@ -4,14 +4,17 @@ import lombok.Getter;
 
 public class DroneRequest {
     @Getter
-    private Float startX;
+    private Double startX;
 
     @Getter
-    private Float startY;
+    private Double startY;
 
     @Getter
-    private Float destinationX;
+    private Double destinationX;
 
     @Getter
-    private Float destinationY;
+    private Double destinationY;
+
+    @Getter
+    private Integer capacity;
 }
