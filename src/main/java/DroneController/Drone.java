@@ -1,18 +1,18 @@
 package DroneController;
 
-import Map.Edge;
-import Map.Node;
-
-import java.util.HashMap;
+import java.time.LocalDateTime;
 
 public class Drone {
-    int[] vector = new int[3];
+    private int[] vector = new int[3];
     //destinatie, sursa, pozitie, altitudine
-    int d, s, p, alt;
-    int[] path;
-    DroneStatus status;
-    int fuel, capacity;
-    int consumption; // mpkwh
+    private int d, s, p, alt;
+    private int x, y;
+    private int[] path;
+    private DroneStatus status;
+    private int fuel, capacity;
+    private int consumption;
+
+    LocalDateTime lastUpdated;
 
     public Drone(){
         fuel = 100;
@@ -35,6 +35,32 @@ public class Drone {
         this.fuel = fuel;
         this.capacity = capacity;
         this.consumption = consumption;
+        x = 0;
+        y = 0;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public int[] getVector() {
