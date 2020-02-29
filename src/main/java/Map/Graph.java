@@ -52,7 +52,7 @@ public class Graph {
         getNodeByID(e.getS().getId()).addChild(e.getD());
     }
 
-    Node getClosestPickupNode(int x, int y){
+    public Node getClosestPickupNode(double x, double y){
 
         Node min = nodes.get(0);
         double d = calculateDistance(x, min.getX(), y, min.getY());
@@ -67,11 +67,11 @@ public class Graph {
         return min;
     }
 
-    double calculateDistance(int x1, int y1, int x2, int y2){
+    public static double calculateDistance(double x1, double y1, double x2, double y2){
         return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     }
 
-    Node getClosestHub(Node x){
+    public Node getClosestHub(Node x){
         Node min = nodes.get(0);
         double d = calculateDistance(x.getX(), min.getX(), x.getY(), min.getY());
         for (Node n : nodes) {
