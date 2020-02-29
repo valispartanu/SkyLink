@@ -1,7 +1,7 @@
 package DroneController;
 
 public class Drone {
-    int[] vector;
+    int[] vector = new int[3];
     //destinatie, sursa, pozitie, altitudine
     int d, s, p, alt;
     int[] path;
