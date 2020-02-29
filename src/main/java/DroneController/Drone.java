@@ -1,5 +1,10 @@
 package DroneController;
 
+import Map.Edge;
+import Map.Node;
+
+import java.util.HashMap;
+
 public class Drone {
     int[] vector = new int[3];
     //destinatie, sursa, pozitie, altitudine
