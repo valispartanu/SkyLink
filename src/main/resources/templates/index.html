@@ -37,9 +37,38 @@
 
     <div id="map"></div>
     <script>
-        function(lng, lat){
-
+        async function sendData(coordinates) {
+            await sendHttpRequest('POST', '/orderDrone', coordinates)
+                .then(responseData => {
+                    // document.getElementById('textArea').value = responseData;
+                    console.log(responseData);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
+
+        const sendHttpRequest = (method, url, data) => {
+
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open(method, url);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onload = () => {
+                    if (xhr.status >= 400) {
+                        reject(xhr.response);
+                    } else {
+                        resolve(xhr.response);
+                    }
+                };
+
+                xhr.onerror = () => {
+                    reject('Something went wrong!');
+                };
+                xhr.send(JSON.stringify(data));
+
+            });
+        };
 
         function initialize() {
             var mapDiv = document.getElementById('map');
@@ -68,8 +97,23 @@
                 });
                 google.maps.event.addListener(rectangle, 'click', function(args) {
                     console.log('latlng', args.latLng.lat() + ", " + args.latLng.lng());
-
+                    if(coordinates.startX == null) {
+                        coordinates.startX = args.latLng.lat();
+                        coordinates.startY = args.latLng.lng();
+                    }
+                    else {
+                        coordinates.destinationX = args.latLng.lat();
+                        coordinates.destinationY = args.latLng.lng();
+                        sendData(coordinates);
+                    }
                 });
+                const coordinates = {
+                    startX: null,
+                    startY: null,
+                    destinationX: null,
+                    destinationY: null,
+                    capacity: 1
+                };
             });
             google.maps.event.addDomListener(window, 'load', initialize);
         }

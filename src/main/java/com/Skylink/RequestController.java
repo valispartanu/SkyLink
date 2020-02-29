@@ -23,6 +23,8 @@ public class RequestController {
 
     @PostMapping(value = "/orderDrone")
     public Drone orderDrone(@RequestBody DroneRequest droneRequest) {
+        System.out.println("StartX:" + droneRequest.getStartX() + " StartY:"+ droneRequest.getStartY() + " DestinationX:" +
+                droneRequest.getDestinationX() + " DestinationY:"+ droneRequest.getDestinationY() + " Capacity:" + droneRequest.getCapacity());
         Request request = new Request(droneRequest.getStartX(), droneRequest.getStartY(),
                     droneRequest.getDestinationX(), droneRequest.getDestinationY(), droneRequest.getCapacity());
         return Objects.requireNonNull(scheduler.assignDrone(request));
