@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Admin {
 
-    List<Drone> drones;
+    private List<Drone> drones;
     private static Admin instance;
 
     public static Admin getInstance(){
@@ -19,4 +19,7 @@ public class Admin {
         drones = new ArrayList<>();
     }
 
+    public List<Drone> getDrones() {
+        return drones;
+    }
 }

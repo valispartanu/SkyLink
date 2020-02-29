@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Node {
 
-    private int x, y; // pos on the image
+    private double x, y; // pos on the image
 
     private int id;
 
@@ -13,7 +13,7 @@ public class Node {
     private Map<Node, Edge> edges;
     private List<Node> children;
 
-    public Node(int x, int y, int id, NodeDesc s) {
+    public Node(double x, double y, int id, NodeDesc s) {
         this.x = x;
         this.y = y;
         this.id = id;
@@ -27,19 +27,19 @@ public class Node {
         edges.put(x, new Edge(this, x));
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
