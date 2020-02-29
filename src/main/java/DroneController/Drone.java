@@ -3,15 +3,18 @@ package DroneController;
 import Client.Request;
 import Map.Graph;
 import Map.Node;
+import io.vavr.collection.Array;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 public class Drone {
     private double[] vector = new double[3];
     //destinatie, sursa, pozitie, altitudine
     private int d, s, p, alt;
-    private int x, y;
+    private double x;
+    private double y;
     private int[] path;
     private DroneStatus status;
     private int fuel, capacity;
@@ -21,8 +24,8 @@ public class Drone {
     LocalDateTime lastUpdated;
     LocalDateTime arrival;
 
-    Request r;
-    Node start, finish;
+    private Request r;
+    private Node start, finish;
 
     public Drone(){
         fuel = 100;
@@ -35,27 +38,23 @@ public class Drone {
         speed = 0.001;
     }
 
-    public Drone(double[] vector, int d, int s, int p, int alt, int[] path, DroneStatus status, int fuel, int capacity, int consumption, double speed) {
-        this.vector = vector;
-        this.d = d;
-        this.s = s;
-        this.p = p;
-        this.alt = alt;
-        this.path = path;
-        this.status = status;
+    public Drone(double x, double y, int fuel, int capacity, int consumption, double speed) {
+        this.x = x;
+        this.y = y;
         this.fuel = fuel;
         this.capacity = capacity;
         this.consumption = consumption;
-        this.speed = 1;
-        x = 0;
-        y = 0;
+        this.speed = speed;
+        lastUpdated = LocalDateTime.now();
     }
 
     public void updateDestination(Node d){
         finish = d;
         double mag = Graph.calculateDistance(x, y, d.getX(), d.getY());
+        System.out.println(mag);
         vector[0] = ((d.getX() - x)/mag)*speed;
         vector[1] = ((d.getY() - y)/mag)*speed;
+        System.out.println(Arrays.toString(vector));
     }
 
     public void updateRequest(Request r){
@@ -74,19 +73,19 @@ public class Drone {
         lastUpdated = LocalDateTime.now();
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 

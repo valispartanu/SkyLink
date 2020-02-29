@@ -1,5 +1,7 @@
 package Map;
 
+import Control.Admin;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class Graph {
         getNodeByID(n.getId()).setS(NodeDesc.PICKUP);
     }
 
-    void addNode(Node n){
+    public void addNode(Node n){
         nodes.add(n);
     }
 
@@ -54,6 +56,8 @@ public class Graph {
 
     public Node getClosestPickupNode(double x, double y){
 
+        if(nodes.size() == 0)
+            Admin.getInstance().importNodes();
         Node min = nodes.get(0);
         double d = calculateDistance(x, min.getX(), y, min.getY());
         for (Node n : nodes) {
@@ -68,10 +72,12 @@ public class Graph {
     }
 
     public static double calculateDistance(double x1, double y1, double x2, double y2){
-        return sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+        return ((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     }
 
     public Node getClosestHub(Node x){
+        if(nodes.size() == 0)
+            Admin.getInstance().importNodes();
         Node min = nodes.get(0);
         double d = calculateDistance(x.getX(), min.getX(), x.getY(), min.getY());
         for (Node n : nodes) {
@@ -84,5 +90,7 @@ public class Graph {
         }
         return min;
     }
+
+
 
 }

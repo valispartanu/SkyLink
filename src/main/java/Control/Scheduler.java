@@ -4,7 +4,6 @@ import Client.Request;
 import DroneController.Drone;
 import DroneController.DroneStatus;
 import Map.Graph;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +23,7 @@ public class Scheduler {
                 min = d;
             }
         }
+        System.out.println("dist" + mindist);
         return min;
     }
 
