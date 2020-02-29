@@ -73,16 +73,16 @@
         function initialize() {
             var mapDiv = document.getElementById('map');
             var map = new google.maps.Map(mapDiv, {
-                center: new google.maps.LatLng(37.4419, -122.1419),
+                center: new google.maps.LatLng(51.4532768,-2.5843882),
                 zoom: 13,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
             google.maps.event.addListener(map, 'bounds_changed', function() {
-                var lat1 = 37.41463623043073;
-                var lat2 = 37.46915383933881;
-                var lng1 = -122.1848153442383;
-                var lng2 = -122.09898465576174;
+                var lat1 = 51.414626;
+                var lat2 = 51.5521051;
+                var lng1 = -2.6604784;
+                var lng2 = -2.4786526;
 
                 var rectangle = new google.maps.Polygon({
                     paths : [
