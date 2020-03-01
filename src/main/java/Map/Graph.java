@@ -62,8 +62,8 @@ public class Graph {
             Admin.getInstance().importNodes();
         Node min = nodes.get(0);
         double d = calculateDistance(x, y, min.getX(), min.getY());
-        System.out.println("dist nod 1: " + calculateDistance(x, y, nodes.get(0).getX(), nodes.get(0).getY()));
-        System.out.println("dist nod 2: " + calculateDistance(x, y, nodes.get(1).getX(), nodes.get(1).getY()));
+//        System.out.println("dist nod 1: " + calculateDistance(x, y, nodes.get(0).getX(), nodes.get(0).getY()));
+//        System.out.println("dist nod 2: " + calculateDistance(x, y, nodes.get(1).getX(), nodes.get(1).getY()));
         for (Node n : nodes) {
             //System.out.println("nod: " + n.getX() + " " + n.getY() );
             if(n.getS() == NodeDesc.PICKUP) {
@@ -88,7 +88,7 @@ public class Graph {
         //System.out.println("dist nod 1: " + calculateDistance(x, nodes.get(0).getX(), y, nodes.get(0).getY()));
         //System.out.println("dist nod 2: " + calculateDistance(x, nodes.get(1).getX(), y, nodes.get(1).getY()));
         for (Node n : nodes) {
-            System.out.println("nod: " + n.getX() + " " + n.getY() );
+//            System.out.println("nod: " + n.getX() + " " + n.getY() );
             if(n.getS() == NodeDesc.HUB) {
                 if (calculateDistance(x.getX(), x.getY(), n.getX(), n.getY()) < d) {
                     d = calculateDistance(x.getX(), x.getY(), n.getX(), n.getY());

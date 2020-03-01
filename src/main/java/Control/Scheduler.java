@@ -17,13 +17,11 @@ public class Scheduler {
         Drone min = null;
         double mindist = 9007199254740991.0;
         for(Drone d : Admin.getInstance().getDrones()){
-            d.updatePos();
             if(Graph.calculateDistance(r.getStart().getX(), r.getStart().getY(), d.getX(), d.getY()) < mindist && hasFuel() && d.getStatus() == DroneStatus.SLEEPING){
                 mindist = Graph.calculateDistance(r.getStart().getX(), r.getStart().getY(), d.getX(), d.getY());
                 min = d;
             }
         }
-        System.out.println("dist" + mindist);
         return min;
     }
 

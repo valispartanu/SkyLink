@@ -79,6 +79,7 @@ public class Admin {
                     graph.addNode(new Node(Double.parseDouble(values[0]), Double.parseDouble(values[1]), id, NodeDesc.PICKUP));
                 if(values[2].equals("H"))
                     graph.addNode(new Node(Double.parseDouble(values[0]), Double.parseDouble(values[1]), id, NodeDesc.HUB));
+                id++;
             }
         } catch (IOException e) {
             e.printStackTrace();

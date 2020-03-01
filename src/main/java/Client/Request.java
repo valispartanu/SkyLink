@@ -11,7 +11,7 @@ public class Request {
         start = Graph.getGraph().getClosestPickupNode(x1, y1);
         finish = Graph.getGraph().getClosestPickupNode(x2, y2);
 
-        System.out.println(start.getId());System.out.println(finish.getId());
+//        System.out.println(start.getId());System.out.println(finish.getId());
 
         this.capacity = capacity;
     }
