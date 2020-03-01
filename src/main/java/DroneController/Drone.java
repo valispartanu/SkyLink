@@ -95,21 +95,19 @@ public class Drone {
         if(status == DroneStatus.TOPICKUP)
             if(arrived(r.getStart())){
                 status = DroneStatus.INSERVICE;
-                System.out.println("Arrived at the pickup point" + x + " " + y);
+                updateDestination(r.getFinish());
+                System.out.println("Drone number " + id + ": " + "Arrived at the pickup point" + x + " " + y);
                 x = r.getStart().getX();
                 y = r.getStart().getY();
-                updateDestination(r.getFinish());
             }
         if(status == DroneStatus.INSERVICE) {
-//            System.out.println(getPercentage() + "% " + status);
+            System.out.println("Drone number " + id + ": " + getPercentage() + "% " + status);
             if (arrived(r.getFinish())) {
                 status = DroneStatus.SLEEPING;
-//                updateDestination(r.getFinish());
-                System.out.println("Arrived at the destination" + x + " " + y);
+                updateDestination(r.getFinish());
+                System.out.println("Drone number " + id + ": " + "Arrived at the destination" + x + " " + y);
                 x = r.getFinish().getX();
                 y = r.getFinish().getY();
-                vector[0] = 0;
-                vector[0] = 0;
             }
         }
         if(status == DroneStatus.INSERVICE || status == DroneStatus.TOPICKUP) {
