@@ -92,26 +92,78 @@
             map = new google.maps.Map(mapDiv, {
                 center: new google.maps.LatLng(51.4532768,-2.5843882),
                 point2: new google.maps.LatLng(51.414626,-2.6604784),
+                point3: new google.maps.LatLng(51.4974817,-2.5088525),
+                point4: new google.maps.LatLng(51.45751, -2.58619),
+                point5: new google.maps.LatLng(51.45529, -2.62706),
+                point6: new google.maps.LatLng(51.46459, -2.60996),
+                point7: new google.maps.LatLng(51.44828, -2.61859),
+                point8: new google.maps.LatLng(51.44925, -2.60878),
+                point9: new google.maps.LatLng(51.44914, -2.59767),
+                point10: new google.maps.LatLng(51.45699, -2.61326),
                 zoom: 13,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
             var marker = new google.maps.Marker({
                 position: map.center,
+                title: "Point Center"
             });
 
             var marker1 = new google.maps.Marker({
                 position: map.point2,
+                title: "Point 2"
+            });
+
+            var marker2 = new google.maps.Marker({
+                position: map.point3,
+                title: "Point 3"
+            });
+
+            var marker3 = new google.maps.Marker({
+                position: map.point4,
+                title: "Cabot Circus"
+            });
+            var marker4 = new google.maps.Marker({
+                position: map.point5,
+                title: "Clifton Bridge"
+            });
+            var marker5 = new google.maps.Marker({
+                position: map.point6,
+                title: "Clifton Down"
+            });
+            var marker6 = new google.maps.Marker({
+                position: map.point7,
+                title: "Harbourside 1"
+            });
+            var marker7 = new google.maps.Marker({
+                position: map.point8,
+                title: "Harbourside 2"
+            });
+            var marker8 = new google.maps.Marker({
+                position: map.point9,
+                title: "Harbourside 3"
+            });
+            var marker9 = new google.maps.Marker({
+                position: map.point10,
+                title: "Bristol SU"
             });
 
             marker.setMap(map);
             marker1.setMap(map);
+            marker2.setMap(map);
+            marker3.setMap(map);
+            marker4.setMap(map);
+            marker5.setMap(map);
+            marker6.setMap(map);
+            marker7.setMap(map);
+            marker8.setMap(map);
+            marker9.setMap(map);
 
             google.maps.event.addListener(map, 'bounds_changed', function() {
                 var lat1 = 51.414626;
-                var lat2 = 51.5521051;
+                var lat2 = 51.4974817;
                 var lng1 = -2.6604784;
-                var lng2 = -2.4786526;
+                var lng2 = -2.5088525;
 
                 var rectangle = new google.maps.Polygon({
                     paths : [
