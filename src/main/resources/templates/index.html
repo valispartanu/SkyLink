@@ -208,7 +208,7 @@
             const identity = setInterval(scene, 2000);
 
             async function scene() {
-                if (width >= 100) {
+                if (width >= 98) {
                     clearInterval(identity);
                 } else {
                     await sendHttpRequest('POST', '/statusDrone', drone)
