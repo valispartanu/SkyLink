@@ -96,16 +96,16 @@ public class Drone {
             if(arrived(r.getStart())){
                 status = DroneStatus.INSERVICE;
                 updateDestination(r.getFinish());
-                System.out.println("Arrived at the pickup point" + x + " " + y);
+                System.out.println("Drone number " + id + ": " + "Arrived at the pickup point" + x + " " + y);
                 x = r.getStart().getX();
                 y = r.getStart().getY();
             }
         if(status == DroneStatus.INSERVICE) {
-            System.out.println(getPercentage() + "% " + status);
+            System.out.println("Drone number " + id + ": " + getPercentage() + "% " + status);
             if (arrived(r.getFinish())) {
                 status = DroneStatus.SLEEPING;
                 updateDestination(r.getFinish());
-                System.out.println("Arrived at the destination" + x + " " + y);
+                System.out.println("Drone number " + id + ": " + "Arrived at the destination" + x + " " + y);
                 x = r.getFinish().getX();
                 y = r.getFinish().getY();
             }

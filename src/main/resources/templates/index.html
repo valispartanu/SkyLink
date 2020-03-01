@@ -204,17 +204,21 @@
         function update(drone) {
             console.log("Nr Drona: " + drone);
             const bar1 = createLoadingBar();
-            let width = 1;
+            let finished = 0;
             const identity = setInterval(scene, 2000);
 
             async function scene() {
-                if (width >= 98) {
+                if (finished) {
                     clearInterval(identity);
                 } else {
                     await sendHttpRequest('POST', '/statusDrone', drone)
                         .then(responseData => {
                             const json = JSON.parse(responseData);
                             bar1.set(json);
+                            if(json >= 98) {
+                                finished = 100;
+                                bar1.set(100);
+                            }
                         })
                         .catch(err => {
                             console.log(err);

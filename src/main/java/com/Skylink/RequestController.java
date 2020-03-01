@@ -17,12 +17,12 @@ import java.util.Objects;
 public class RequestController {
 
     Scheduler scheduler;
-    Admin admin = Admin.getInstance();
+    Admin admin;
 
     @Autowired
-    public RequestController(Scheduler scheduler){
+    public RequestController(Scheduler scheduler, Admin admin){
         this.scheduler = scheduler;
-//        this.admin = admin;
+        this.admin = admin;
     }
 
     @PostMapping(value = "/orderDrone", consumes = "application/json", produces = "application/json")
