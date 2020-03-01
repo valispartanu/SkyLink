@@ -5,6 +5,7 @@ import Map.Graph;
 import Map.Node;
 import Map.NodeDesc;
 import com.opencsv.CSVReader;
+import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Service
 public class Admin {
 
     private List<Drone> drones;
@@ -32,12 +34,14 @@ public class Admin {
         return drones;
     }
 
+    public Drone getDroneById(int id) {return drones.get(id);}
+
     public void importDrones() {
         try (CSVReader csvReader = new CSVReader(new FileReader("src/main/resources/drones.csv"));) {
             String[] values = null;
             while ((values = csvReader.readNext()) != null) {
                 //System.out.println(Arrays.toString(values));
-                drones.add(new Drone(Double.parseDouble(values[0]), Double.parseDouble(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5])));
+                drones.add(new Drone(Double.parseDouble(values[0]), Double.parseDouble(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]), drones.size()));
             }
         } catch (IOException e) {
             e.printStackTrace();

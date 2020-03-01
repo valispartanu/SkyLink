@@ -1,5 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    #Progress_Status {
+        width: 50%;
+        background-color: #ddd;
+    }
+
+    #myProgressBar {
+        width: 2%;
+        height: 20px;
+        background-color: #4CAF50;
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="css/loading-bar.css"/>
+<script type="text/javascript" src="js/loading-bar.js"></script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0">
@@ -40,8 +56,8 @@
         async function sendData(coordinates) {
             await sendHttpRequest('POST', '/orderDrone', coordinates)
                 .then(responseData => {
-                    // document.getElementById('textArea').value = responseData;
-                    console.log(responseData);
+                    const json = JSON.parse(responseData);
+                    update(json)
                 })
                 .catch(err => {
                     console.log(err);
@@ -145,8 +161,54 @@
 
         }); //end addListener*/
     </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHL2sdVWfQNlUODbQweiKXkAcwIuz3xW8&callback=initialize"
-            async defer></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHL2sdVWfQNlUODbQweiKXkAcwIuz3xW8&callback=initialize"
+            async defer>
+
+    </script>
+
+    <div id="Progress_Status"></div>
+
+    <script>
+        function createLoadingBar() {
+            /* construct manually */
+            document.getElementById('map').insertAdjacentHTML('beforeend',
+                "         <div\n" +
+                "         id=\"Loading_Bar\"\n" +
+                "         data-value=\"0\"\n" +
+                "         class=\"ldBar label-center\"\n" +
+                "         data-preset=\"stripe\"\n" +
+                "         style=\"width: 350px; height: 70px; display: block;\n" +
+                "         margin-left: auto;\n" +
+                "         margin-right: auto;\"" +
+                "         ></div> ");
+            return new ldBar("#Loading_Bar");
+        }
+    </script>
+
+    <script>
+        function update(drone) {
+            console.log("Nr Drona: " + drone);
+            const bar1 = createLoadingBar();
+            let width = 1;
+            const identity = setInterval(scene, 2000);
+
+            async function scene() {
+                if (width >= 100) {
+                    clearInterval(identity);
+                } else {
+                    await sendHttpRequest('POST', '/statusDrone', drone)
+                        .then(responseData => {
+                            const json = JSON.parse(responseData);
+                            bar1.set(json);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>

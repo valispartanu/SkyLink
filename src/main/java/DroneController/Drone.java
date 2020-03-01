@@ -4,6 +4,9 @@ import Client.Request;
 import Map.Graph;
 import Map.Node;
 import io.vavr.collection.Array;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -12,6 +15,8 @@ import java.util.Arrays;
 public class Drone {
     private double[] vector = new double[3];
     //destinatie, sursa, pozitie, altitudine
+    @Getter
+    private int id;
     private int d, s, p, alt;
     private double x;
     private double y;
@@ -38,7 +43,8 @@ public class Drone {
         speed = 0.001;
     }
 
-    public Drone(double x, double y, int fuel, int capacity, int consumption, double speed) {
+    public Drone(double x, double y, int fuel, int capacity, int consumption, double speed, int id) {
+        this.id = id;
         this.x = x;
         this.y = y;
         this.fuel = fuel;
