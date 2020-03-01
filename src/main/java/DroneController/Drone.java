@@ -51,7 +51,7 @@ public class Drone {
         this.fuel = fuel;
         this.capacity = capacity;
         this.consumption = consumption;
-        this.speed = 0.0001;
+        this.speed = 0.000001;
         lastUpdated = LocalDateTime.now();
         this.status = DroneStatus.SLEEPING;
         this.id = id;
@@ -77,7 +77,7 @@ public class Drone {
 
     boolean arrived(Node d){
         double mag = Graph.calculateDistance(x, y, d.getX(), d.getY());
-        return mag <= 0.003;
+        return mag <= 0.00005;
     }
 
     public int getPercentage(){
@@ -96,14 +96,18 @@ public class Drone {
             if(arrived(r.getStart())){
                 status = DroneStatus.INSERVICE;
                 updateDestination(r.getFinish());
-                System.out.println("Arrived at the pickup point" + x + " " + y);
+                System.out.println("Drone number " + id + ": " + "Arrived at the pickup point" + x + " " + y);
+                x = r.getStart().getX();
+                y = r.getStart().getY();
             }
         if(status == DroneStatus.INSERVICE) {
-            System.out.println(getPercentage() + "% " + status);
+            System.out.println("Drone number " + id + ": " + getPercentage() + "% " + status);
             if (arrived(r.getFinish())) {
                 status = DroneStatus.SLEEPING;
                 updateDestination(r.getFinish());
-                System.out.println("Arrived at the destination" + x + " " + y);
+                System.out.println("Drone number " + id + ": " + "Arrived at the destination" + x + " " + y);
+                x = r.getFinish().getX();
+                y = r.getFinish().getY();
             }
         }
         if(status == DroneStatus.INSERVICE || status == DroneStatus.TOPICKUP) {
