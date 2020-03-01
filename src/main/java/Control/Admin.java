@@ -13,7 +13,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Service
+
+class DroneRunner extends Thread{
+    public void run() {
+        try {
+            while(true)
+                for(Drone d:Admin.getInstance().getDrones())
+                    d.updatePos();
+        }
+        catch (Exception e) {
+            System.out.println ("Exception is caught");
+            e.printStackTrace();
+        }
+    }
+}
+
 public class Admin {
 
     private List<Drone> drones;
@@ -39,6 +53,7 @@ public class Admin {
     public void importDrones() {
         try (CSVReader csvReader = new CSVReader(new FileReader("src/main/resources/drones.csv"));) {
             String[] values = null;
+            int id = 0;
             while ((values = csvReader.readNext()) != null) {
                 //System.out.println(Arrays.toString(values));
                 drones.add(new Drone(Double.parseDouble(values[0]), Double.parseDouble(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]), drones.size()));
@@ -46,7 +61,8 @@ public class Admin {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(drones.size());
+        DroneRunner dr =  new DroneRunner();
+        dr.start();
     }
 
     public void importNodes(){

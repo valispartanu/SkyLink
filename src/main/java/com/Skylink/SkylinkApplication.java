@@ -20,6 +20,4 @@ public class SkylinkApplication {
 		return new Scheduler();
 	}
 
-	@Bean
-	Admin admin(){ return new Admin();}
 }

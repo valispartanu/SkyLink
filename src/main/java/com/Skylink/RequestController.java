@@ -4,6 +4,7 @@ import Client.Request;
 import Control.Admin;
 import DroneController.Drone;
 import DroneController.DroneRequest;
+import DroneController.DroneStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,9 +20,9 @@ public class RequestController {
     Admin admin;
 
     @Autowired
-    public RequestController(Scheduler scheduler, Admin admin){
+    public RequestController(Scheduler scheduler){
         this.scheduler = scheduler;
-        this.admin = admin;
+        this.admin = Admin.getInstance();
     }
 
     @PostMapping(value = "/orderDrone", consumes = "application/json", produces = "application/json")
@@ -36,8 +37,12 @@ public class RequestController {
     @PostMapping(value = "/statusDrone", consumes = "application/json", produces = "application/json")
     public Integer statusDrone(@RequestBody Integer id) {
 //        System.out.println("id:" + id);
-        admin.getDroneById(id).getStatus();
-        return 69;
+        Drone drone = admin.getDroneById(id);
+        if(drone.getStatus() == DroneStatus.TOPICKUP)
+            return 0;
+        else
+            return admin.getDroneById(id).getPercentage();
+
     }
 
 }

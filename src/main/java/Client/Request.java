@@ -10,6 +10,9 @@ public class Request {
     public Request(double x1, double y1, double x2, double y2, int capacity){
         start = Graph.getGraph().getClosestPickupNode(x1, y1);
         finish = Graph.getGraph().getClosestPickupNode(x2, y2);
+
+        System.out.println(start.getId());System.out.println(finish.getId());
+
         this.capacity = capacity;
     }
 

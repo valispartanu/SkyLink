@@ -18,8 +18,8 @@ public class Scheduler {
         double mindist = 9007199254740991.0;
         for(Drone d : Admin.getInstance().getDrones()){
             d.updatePos();
-            if(Graph.calculateDistance(r.getStart().getX(), d.getX(), r.getStart().getY(), d.getY()) < mindist && hasFuel() && d.getStatus() != DroneStatus.INSERVICE){
-                mindist = Graph.calculateDistance(r.getStart().getX(), d.getX(), r.getStart().getY(), d.getY());
+            if(Graph.calculateDistance(r.getStart().getX(), r.getStart().getY(), d.getX(), d.getY()) < mindist && hasFuel() && d.getStatus() == DroneStatus.SLEEPING){
+                mindist = Graph.calculateDistance(r.getStart().getX(), r.getStart().getY(), d.getX(), d.getY());
                 min = d;
             }
         }
@@ -29,8 +29,8 @@ public class Scheduler {
 
     public Drone assignDrone(Request r){
         Drone d = pickClosestAvailableDrone(r);
-        d.setStatus(DroneStatus.INSERVICE);
         d.updateRequest(r);
+        d.setStatus(DroneStatus.TOPICKUP);
         return d;
     }
 }
