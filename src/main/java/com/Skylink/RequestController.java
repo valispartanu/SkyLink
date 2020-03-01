@@ -37,6 +37,8 @@ public class RequestController {
         Warper warper = new Warper();
         warper.id = drone.getId();
         warper.status = drone.getStatus();
+        warper.x = drone.getX();
+        warper.y = drone.getY();
         warper.percentage = 0;
         return warper;
     }
@@ -47,6 +49,9 @@ public class RequestController {
         Warper warper = new Warper();
         warper.id = id;
         warper.status = drone.getStatus();
+        warper.x = drone.getX();
+        warper.y = drone.getY();
+        warper.status = drone.getStatus();
         if(warper.status == DroneStatus.TOPICKUP) {
             warper.percentage = 0;
             return warper;
@@ -55,6 +60,7 @@ public class RequestController {
             return  warper;
         } else {
             warper.percentage = admin.getDroneById(id).getPercentage();
+            if(warper.percentage >= 98) warper.status = DroneStatus.SLEEPING;
             return warper;
         }
     }
@@ -62,6 +68,10 @@ public class RequestController {
     private class Warper {
         @Getter
         private Integer id ;
+        @Getter
+        private Double x ;
+        @Getter
+        private Double y ;
         @Getter
         private DroneStatus status;
         @Getter

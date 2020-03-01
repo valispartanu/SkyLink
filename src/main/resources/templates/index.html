@@ -202,20 +202,39 @@
         function update(drone) {
             console.log("Nr Drona: " + drone.id);
             const bar1 = createLoadingBar();
-            document.getElementById('map').insertAdjacentHTML('beforeend',
+            document.getElementById('map').insertAdjacentHTML('afterend',
                 "         <div id = \"droneStatus\"\n" +
-                "         style=\"width: 350px; height: 70px; display: block;\n" +
-                "         margin-left: auto;\n" +
-                "         margin-right: auto;" +
-                "         position : top;" +
+                "         style=\"width: 350px; height: 70px; display: block;" +
+                "         margin-left: auto;" +
+                "         margin-right: auto;\">" +
                 "         <p id=\"drone_status\"></p>\n" +
                 "         </div> ");
-            document.getElementById('map').insertAdjacentHTML('beforeend',
-                "         <div id = \"droneID\" style=\" position : top;\">\n" +
+            document.getElementById('map').insertAdjacentHTML('afterend',
+                "         <div id = \"droneID\"\n" +
+                "         style=\"width: 350px; height: 70px; display: block;" +
+                "         margin-left: auto;" +
+                "         margin-right: auto;\" >" +
                 "         <p id=\"drone_id\"></p>\n" +
+                "         </div> ");
+            document.getElementById('map').insertAdjacentHTML('afterend',
+                "         <div id = \"droneX\"\n" +
+                "         style=\"width: 350px; height: 70px; display: block;" +
+                "         margin-left: auto;" +
+                "         margin-right: auto;\" >" +
+                "         <p id=\"drone_x\"></p>\n" +
+                "         </div> ");
+            document.getElementById('map').insertAdjacentHTML('afterend',
+                "         <div id = \"droneY\"\n" +
+                "         style=\"width: 350px; height: 70px; display: block;" +
+                "         margin-left: auto;" +
+                "         margin-right: auto;\" >" +
+                "         <p id=\"drone_y\"></p>\n" +
                 "         </div> ");
             document.getElementById('drone_status').innerHTML = "Drone Status: " + drone.status;
             document.getElementById('drone_id').innerHTML = "Drone ID: " + drone.id;
+            document.getElementById('drone_x').innerHTML = "Drone X: " + drone.x;
+            document.getElementById('drone_y').innerHTML = "Drone Y: " + drone.y;
+
             let finished = 0;
             const identity = setInterval(scene, 2000);
 
@@ -228,8 +247,10 @@
                             const json = JSON.parse(responseData);
                             bar1.set(json.percentage);
                             document.getElementById('drone_status').innerHTML = "Drone Status: " + json.status;
+                            document.getElementById('drone_x').innerHTML = "Drone X: " + drone.x;
+                            document.getElementById('drone_y').innerHTML = "Drone Y: " + drone.y;
                             if(json.percentage >= 98) {
-                                finished = 100;
+                                finished = 1;
                                 bar1.set(100);
                             }
                         })
