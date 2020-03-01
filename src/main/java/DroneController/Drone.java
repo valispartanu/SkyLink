@@ -51,24 +51,25 @@ public class Drone {
         this.fuel = fuel;
         this.capacity = capacity;
         this.consumption = consumption;
-        this.speed = speed;
+        this.speed = 0.0001;
         lastUpdated = LocalDateTime.now();
         this.status = DroneStatus.SLEEPING;
         this.id = id;
     }
 
     public void updateDestination(Node d){
+//        System.out.println(x + " " + y + " " + d.getX() + " " + d.getY());
         double mag = Graph.calculateDistance(x, y, d.getX(), d.getY());
-        System.out.println(mag + " " + status);
+//        System.out.println(mag + " " + status);
 //        System.out.println(mag + " " + x + " " + y + " | " + d.getX() + " " + d.getY());
         vector[0] = ((d.getX() - x)/mag)*speed;
         vector[1] = ((d.getY() - y)/mag)*speed;
-        //System.out.println(Arrays.toString(vector));
+//        System.out.println(mag + " " +Arrays.toString(vector));
     }
 
     public void updateRequest(Request r){
         //System.out.println("initial mag: "+Graph.calculateDistance(r.getStart().getX(), r.getFinish().getX(), r.getStart().getY(), r.getFinish().getY()));
-        System.out.println(r.getStart().getX() + " " + r.getStart().getY() + " | " + r.getFinish().getX() + " " + r.getFinish().getY());
+//        System.out.println(r.getStart().getX() + " " + r.getStart().getY() + " | " + r.getFinish().getX() + " " + r.getFinish().getY());
         this.r = r;
         start = r.getStart();
         updateDestination(r.getFinish());
@@ -76,15 +77,12 @@ public class Drone {
 
     boolean arrived(Node d){
         double mag = Graph.calculateDistance(x, y, d.getX(), d.getY());
-        if(mag <= 0.003)
-            return true;
-        else return false;
+        return mag <= 0.003;
     }
 
     public int getPercentage(){
         double dt = Graph.calculateDistance(r.getStart().getX(), r.getStart().getY(), r.getFinish().getX(), r.getFinish().getY());
         double dp = Graph.calculateDistance(x, y, r.getFinish().getX(), r.getFinish().getY());
-        System.out.println(dt + " " + dp);
         return (int) (100-dp/dt*100.0);
     }
 
@@ -101,7 +99,7 @@ public class Drone {
                 System.out.println("Arrived at the pickup point" + x + " " + y);
             }
         if(status == DroneStatus.INSERVICE) {
-            System.out.println(getPercentage() + "%");
+            System.out.println(getPercentage() + "% " + status);
             if (arrived(r.getFinish())) {
                 status = DroneStatus.SLEEPING;
                 updateDestination(r.getFinish());
@@ -109,8 +107,8 @@ public class Drone {
             }
         }
         if(status == DroneStatus.INSERVICE || status == DroneStatus.TOPICKUP) {
-            double diff = Math.abs(Duration.between(LocalDateTime.now(), lastUpdated).toMillis()) / 1000.0;
-            //System.out.println(vector[0]*diff);
+            double diff = Math.abs(Duration.between(LocalDateTime.now(), lastUpdated).toMillis()) ;
+            ///System.out.println(diff)
             updateDestination(r.getFinish());
             x += (vector[0] * diff);
             y += (vector[1] * diff);

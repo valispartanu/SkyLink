@@ -17,12 +17,12 @@ import java.util.Objects;
 public class RequestController {
 
     Scheduler scheduler;
-    Admin admin;
+    Admin admin = Admin.getInstance();
 
     @Autowired
     public RequestController(Scheduler scheduler){
         this.scheduler = scheduler;
-        this.admin = Admin.getInstance();
+//        this.admin = admin;
     }
 
     @PostMapping(value = "/orderDrone", consumes = "application/json", produces = "application/json")
@@ -40,8 +40,11 @@ public class RequestController {
         Drone drone = admin.getDroneById(id);
         if(drone.getStatus() == DroneStatus.TOPICKUP)
             return 0;
+        else if (drone.getStatus() == DroneStatus.SLEEPING)
+            return 100;
         else
             return admin.getDroneById(id).getPercentage();
+
 
     }
 

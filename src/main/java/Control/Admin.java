@@ -17,9 +17,11 @@ import java.util.List;
 class DroneRunner extends Thread{
     public void run() {
         try {
-            while(true)
-                for(Drone d:Admin.getInstance().getDrones())
+            while(true) {
+                Thread.sleep(1);
+                for (Drone d : Admin.getInstance().getDrones())
                     d.updatePos();
+            }
         }
         catch (Exception e) {
             System.out.println ("Exception is caught");
@@ -42,6 +44,7 @@ public class Admin {
     public Admin(){
         drones = new ArrayList<>();
         importDrones();
+        instance = this;
     }
 
     public List<Drone> getDrones() {
@@ -56,7 +59,7 @@ public class Admin {
             int id = 0;
             while ((values = csvReader.readNext()) != null) {
                 //System.out.println(Arrays.toString(values));
-                drones.add(new Drone(Double.parseDouble(values[0]), Double.parseDouble(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), Integer.parseInt(values[5]), drones.size()));
+                drones.add(new Drone(Double.parseDouble(values[0]), Double.parseDouble(values[1]), Integer.parseInt(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]), Double.parseDouble(values[5]), drones.size()));
             }
         } catch (IOException e) {
             e.printStackTrace();

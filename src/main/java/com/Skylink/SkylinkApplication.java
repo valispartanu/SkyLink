@@ -19,5 +19,10 @@ public class SkylinkApplication {
 	Scheduler scheduler(){
 		return new Scheduler();
 	}
+//
+//	@Bean
+//	Admin admin(){
+//		return Admin.getInstance();
+//	}
 
 }
