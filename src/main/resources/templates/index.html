@@ -181,8 +181,6 @@
 
     </script>
 
-    <div id="Progress_Status"></div>
-
     <script>
         function createLoadingBar() {
             /* construct manually */
@@ -195,15 +193,29 @@
                 "         style=\"width: 350px; height: 70px; display: block;\n" +
                 "         margin-left: auto;\n" +
                 "         margin-right: auto;\"" +
-                "         ></div> ");
+                "         ></div>");
             return new ldBar("#Loading_Bar");
         }
     </script>
 
     <script>
         function update(drone) {
-            console.log("Nr Drona: " + drone);
+            console.log("Nr Drona: " + drone.id);
             const bar1 = createLoadingBar();
+            document.getElementById('map').insertAdjacentHTML('beforeend',
+                "         <div id = \"droneStatus\"\n" +
+                "         style=\"width: 350px; height: 70px; display: block;\n" +
+                "         margin-left: auto;\n" +
+                "         margin-right: auto;" +
+                "         position : top;" +
+                "         <p id=\"drone_status\"></p>\n" +
+                "         </div> ");
+            document.getElementById('map').insertAdjacentHTML('beforeend',
+                "         <div id = \"droneID\" style=\" position : top;\">\n" +
+                "         <p id=\"drone_id\"></p>\n" +
+                "         </div> ");
+            document.getElementById('drone_status').innerHTML = "Drone Status: " + drone.status;
+            document.getElementById('drone_id').innerHTML = "Drone ID: " + drone.id;
             let finished = 0;
             const identity = setInterval(scene, 2000);
 
@@ -211,11 +223,12 @@
                 if (finished) {
                     clearInterval(identity);
                 } else {
-                    await sendHttpRequest('POST', '/statusDrone', drone)
+                    await sendHttpRequest('POST', '/statusDrone', drone.id)
                         .then(responseData => {
                             const json = JSON.parse(responseData);
-                            bar1.set(json);
-                            if(json >= 98) {
+                            bar1.set(json.percentage);
+                            document.getElementById('drone_status').innerHTML = "Drone Status: " + json.status;
+                            if(json.percentage >= 98) {
                                 finished = 100;
                                 bar1.set(100);
                             }
