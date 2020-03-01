@@ -236,7 +236,7 @@
             document.getElementById('drone_y').innerHTML = "Drone Y: " + drone.y;
 
             let finished = 0;
-            const identity = setInterval(scene, 2000);
+            const identity = setInterval(scene, 1000);
 
             async function scene() {
                 if (finished) {
@@ -247,8 +247,8 @@
                             const json = JSON.parse(responseData);
                             bar1.set(json.percentage);
                             document.getElementById('drone_status').innerHTML = "Drone Status: " + json.status;
-                            document.getElementById('drone_x').innerHTML = "Drone X: " + drone.x;
-                            document.getElementById('drone_y').innerHTML = "Drone Y: " + drone.y;
+                            document.getElementById('drone_x').innerHTML = "Drone X: " + json.x;
+                            document.getElementById('drone_y').innerHTML = "Drone Y: " + json.y;
                             if(json.percentage >= 98) {
                                 finished = 1;
                                 bar1.set(100);
